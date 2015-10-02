@@ -1,0 +1,48 @@
+Albert Liang
+CS107E
+Clock
+
+The final program is "clock.c", located in the clock folder.  The program
+implements a minutes:seconds clock on a 4-digit, 7-segment display.  The clock
+begins at 59:54 (due to lag from bootloader, 59:55 is the first time shown on
+the display), so it is easier to observe the clock reset to 00:00 after 59:59.
+
+Extension program "clock_x.c" allows the user to set each digit to display the
+number of his or her choice; the clock then continues from that chosen time.
+There are two pushbuttons below the display.  The left button is connected to
+GPIO 17, and the right button is connected to GPIO 18.
+
+When the right button is pressed, the display goes to "set" mode and displays
+only a 0 in the leftmost digit.  The user can then press the left button to
+increment the leftmost digit upwards (or downwards to 0, if the digit is
+currently displaying the maximum possible value the digit can have).  When the
+display shows the number of the user's liking, the user presses the right
+button again to switch to the next digit on the right of the current digit.
+
+In this order, the user can set all 4 digits to the desired time.  After the
+user sets the rightmost digit, the clock resumes normal functionality after a
+quarter-second pause, during which time the display is dark.  The user must not
+hold the button down during the pause - if the user does not lift his or her
+finger before the pause is finished, the clock returns to "set" mode.
+
+The buttons are meant to be very sensitive.  When the user is setting each
+digit, there is only a 50 millisecond delay between readings of the left
+button.  Holding down the left button causes the display to cycle through all
+the numbers once every half-second.
+
+If the user wishes to reset the clock to 00:00, the user can simply hold down
+the right button.  The display will flash a zero through every digit in turn,
+starting from the leftmost and moving to the rightmost.  Again, the user must
+make sure to lift his or her finger after the rightmost digit has set, or else
+the clock will re-enter "set" mode.
+
+Other notes:
+- the "ship" directory contains code for both the minutes:seconds clock and an
+attempted hours:minutes clock which was discontinued due to the process
+freezing at too many loops.
+- the "test" directory contains "blinktest.s", an assembly program I wrote to
+rigorously test the display, GPIO pins, and other hardware for bugs before
+beginning work on the software.
+- The "saves" directory contains a record of save points along the development
+of this clock.  More than once, I've had to discontinue my current version and
+restart from an earlier save.
