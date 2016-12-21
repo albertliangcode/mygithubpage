@@ -1,3 +1,0 @@
-Testing sign in from new location.
-
-Second part of the test.
